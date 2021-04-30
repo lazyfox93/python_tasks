@@ -6,9 +6,10 @@ async def task(host, command):
     cmd =  ["ssh", host]
     args = command.split()
     cmd.extend(args)
-    proc = await asyncio.create_subprocess_exec(*cmd, stdout=asyncio.subprocess.PIPE)
-    stdout, _ = await proc.communicate()
-    return stdout.decode().strip()
+    proc = await asyncio.create_subprocess_exec(
+        *cmd, stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+    stdout, stderr = await proc.communicate()
+    return host, stdout.decode().strip(), stderr.decode().strip() 
 
 
 async def main(hosts, cmd):
