@@ -23,8 +23,8 @@ async def main(hosts, cmd):
 if __name__ == "__main__":
     tasks = []
     parser = argparse.ArgumentParser()
-    parser.add_argument("--IPs", dest='ips', nargs='+')
-    parser.add_argument("--exec", dest="cmd")
+    parser.add_argument("--IPs", dest='ips', nargs='+', required=True)
+    parser.add_argument("--exec", dest="cmd", required=True)
     args = parser.parse_args()
     outs = asyncio.run(main(args.ips, args.cmd))
     print(outs)
